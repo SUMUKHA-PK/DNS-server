@@ -11,6 +11,7 @@ First I will implement what I understand currently of how a DNS server works:
 <br>
 Testing: <br>
 Following are the way I will test my DNS server<br>
+
 * Single query.
 * Multiple clients multiple query
 * Large number of clients concurrently
