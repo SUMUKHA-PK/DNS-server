@@ -1,7 +1,18 @@
 package main
 
 import (
-	"../dotcom"
+	"fmt"
+
+	"../dotcom/amazon"
+	"../dotcom/dell"
+	"../dotedu"
+	"../dotedu/mit"
+	"../dotedu/nitk"
+	"../dotin"
+	"../dotin/dotac"
+	"../dotin/dotac/nitk/cse"
+	"../dotin/dotac/nitk/ece"
+	"../dotin/dotac/nitk/eee"
 	"../root_server"
 )
 
@@ -33,5 +44,24 @@ import (
 
 func main() {
 	root_server.Root_server()
-	dotcom.Dotcom()
+	dotedu.DotEdu()
+	fmt.Printf("|----")
+	nitk.Nitk()
+	fmt.Printf("|----")
+	mit.Mit()
+	dotin.DotIn()
+	fmt.Printf("|----")
+	amazon.Amazon()
+	fmt.Printf("|----")
+	dell.Dell()
+	dotin.DotIn()
+	fmt.Printf("|----")
+	dotac.DotAc()
+	fmt.Printf("    |----")
+	cse.Cse()
+	fmt.Printf("    |----")
+	ece.Ece()
+	fmt.Printf("    |----")
+	eee.Eee()
+
 }
