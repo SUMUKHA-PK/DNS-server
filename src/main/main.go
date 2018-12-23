@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"../dotcom/amazon"
 	"../dotcom/dell"
@@ -43,25 +44,32 @@ import (
 //         -----       -----     -----
 
 func main() {
-	root_server.Root_server()
+
+	var ip string
+	fmt.Scan(&ip)
+	b := strings.Split(ip, ".")
+	fmt.Printf("Length of split: %d\n", len(b))
+
+	root_server.Root_server(b)
+	fmt.Printf("|----")
 	dotedu.DotEdu()
-	fmt.Printf("|----")
+	fmt.Printf("     |----")
 	nitk.Nitk()
-	fmt.Printf("|----")
+	fmt.Printf("     |----")
 	mit.Mit()
 	dotin.DotIn()
-	fmt.Printf("|----")
+	fmt.Printf("     |----")
 	amazon.Amazon()
-	fmt.Printf("|----")
+	fmt.Printf("     |----")
 	dell.Dell()
 	dotin.DotIn()
-	fmt.Printf("|----")
+	fmt.Printf("     |----")
 	dotac.DotAc()
-	fmt.Printf("    |----")
+	fmt.Printf("          |----")
 	cse.Cse()
-	fmt.Printf("    |----")
+	fmt.Printf("          |----")
 	ece.Ece()
-	fmt.Printf("    |----")
+	fmt.Printf("          |----")
 	eee.Eee()
 
 }
