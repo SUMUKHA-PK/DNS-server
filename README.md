@@ -1,5 +1,5 @@
 # DNS-server
-To implement a DNS server to understand its working
+
 <br>
 <br>
 First I will implement what I understand currently of how a DNS server works: 
