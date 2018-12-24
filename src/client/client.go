@@ -5,21 +5,23 @@ import (
 	"fmt"
 	"log"
 	"net"
-	"os"
+	"strings"
 )
 
 func main() {
-	conn, err := net.Dial("tcp", "192.168.1.13:12345")
+
+	fmt.Printf("Enter the query: ")
+	var ip string
+	fmt.Scan(&ip)
+
+	conn, err := net.Dial("tcp", "192.168.43.10:12345")
 	if err != nil {
 		fmt.Print(err)
 	} else {
 		log.Print("Connected")
 	}
-	line := "wwww.google.com"
-	var out []byte
-	copy(out[:], line)
-	conn.Write(out)
-	scanner := bufio.NewScanner(os.Stdin)
+	line := ip
+	scanner := bufio.NewScanner(strings.NewReader(line))
 	fmt.Print("Client message: ")
 	for scanner.Scan() {
 		text := scanner.Text()

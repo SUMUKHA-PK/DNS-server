@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 
 	"../dotcom/amazon"
 	"../dotcom/dell"
@@ -45,12 +44,7 @@ import (
 
 func main() {
 
-	var ip string
-	fmt.Scan(&ip)
-	b := strings.Split(ip, ".")
-	fmt.Printf("Length of split: %d\n", len(b))
-
-	root_server.Root_server(b)
+	root_server.Root_server()
 	fmt.Printf("|----")
 	dotedu.DotEdu()
 	fmt.Printf("     |----")
