@@ -53,7 +53,7 @@ func Root_server() {
 			text := scanner.Text()
 			_, err := fmt.Fprintf(conn, text+"\n")
 			if err != nil {
-
+				//Error exists due to sending in same connection, figure it out
 			}
 			log.Print("Query mapping sent: " + text)
 			break
