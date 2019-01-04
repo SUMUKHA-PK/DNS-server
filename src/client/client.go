@@ -18,7 +18,7 @@ func main() {
 	fmt.Scan(&ip)
 
 	//Dialing to the server, currently hardcoded, figure out later
-	conn, err := net.Dial("tcp", "192.168.43.10:12345")
+	conn, err := net.Dial("tcp", "127.0.1.1:12345")
 	if err != nil {
 		fmt.Print(err)
 	} else {

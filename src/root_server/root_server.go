@@ -13,8 +13,7 @@ var receive string
 func Root_server() {
 
 	// Starting the server
-	fmt.Printf("I am the root server!\n")
-	link, err := net.Listen("tcp", ":12345")
+	link, err := net.Listen("tcp", "127.0.0.1:12345")
 	if err != nil {
 		fmt.Print(err)
 		fmt.Printf("\n2\n")
@@ -23,7 +22,7 @@ func Root_server() {
 	//Continous server listening
 	for {
 
-		fmt.Printf("\nServer listening for incoming connections on port 12345\n\n")
+		fmt.Printf("\nRoot Server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
 			fmt.Print(err)
