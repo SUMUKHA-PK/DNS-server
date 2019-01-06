@@ -17,8 +17,8 @@ func main() {
 	var ip string
 	fmt.Scan(&ip)
 
-	//Dialing to the server, currently hardcoded, figure out later
-	conn, err := net.Dial("tcp", "127.0.1.1:12345")
+	//Root server is always hosted at this
+	conn, err := net.Dial("tcp", "127.0.0.1:12345")
 	if err != nil {
 		fmt.Print(err)
 	} else {

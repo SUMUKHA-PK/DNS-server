@@ -1,6 +1,7 @@
 package main
 
 import (
+	"dotcom"
 	"dotcom/amazon"
 	"dotcom/dell"
 	"dotedu"
@@ -43,26 +44,56 @@ import (
 
 func main() {
 
-	fmt.Printf("I am the Root server!\n")
+	var IP_List_Name = []string{"dotin", "dotcom", "dotedu", "dotac", "google", "amazon", "dell", "nitk", "mit", "nitkac"}
+	var IP_List_Addr = []string{"127.0.1.0", "127.0.1.1", "127.0.1.2", "127.0.2.0", "127.0.2.1", "127.0.2.2", "127.0.2.3", "127.0.2.4", "127.0.2.5", "127.0.3.0"}
+
+	go func() {
+		root_server.Root_server(IP_List_Name, IP_List_Addr)
+	}()
 	fmt.Printf("|----")
-	dotedu.DotEdu()
+	go func() {
+		dotedu.DotEdu()
+	}()
 	fmt.Printf("     |----")
-	nitk.Nitk()
+	go func() {
+		nitk.Nitk()
+	}()
 	fmt.Printf("     |----")
-	mit.Mit()
-	dotin.DotIn()
+	go func() {
+		mit.Mit()
+	}()
+	go func() {
+		dotcom.DotCom(IP_List_Name, IP_List_Addr)
+	}()
 	fmt.Printf("     |----")
-	amazon.Amazon()
+	go func() {
+		amazon.Amazon(IP_List_Name, IP_List_Addr)
+	}()
 	fmt.Printf("     |----")
-	dell.Dell()
-	dotin.DotIn()
+	go func() {
+		dell.Dell()
+	}()
+	go func() {
+		dotin.DotIn()
+	}()
 	fmt.Printf("     |----")
-	dotac.DotAc()
+	go func() {
+		dotac.DotAc()
+	}()
 	fmt.Printf("          |----")
-	cse.Cse()
+	go func() {
+		cse.Cse()
+	}()
 	fmt.Printf("          |----")
-	ece.Ece()
+	go func() {
+		ece.Ece()
+	}()
 	fmt.Printf("          |----")
-	eee.Eee()
-	root_server.Root_server()
+	go func() {
+		eee.Eee()
+	}()
+
+	fmt.Scanln()
+	fmt.Println("done")
+
 }

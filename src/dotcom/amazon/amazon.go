@@ -8,7 +8,9 @@ import (
 	"strings"
 )
 
-func Amazon() {
+var receive string
+
+func Amazon(IP_List_Name []string, IP_List_Addr []string) {
 	fmt.Printf("I am the amazon authoritative server!\n")
 
 	// Starting the server
@@ -41,8 +43,8 @@ func Amazon() {
 			return
 		}
 
-		//Get the result of the mapping from the servers
-		result := start_servers(receive)
+		//Get the IP from the above servers
+		result := get_data(receive)
 
 		//Communicate back the result to the client on the same connection
 		scanner = bufio.NewScanner(strings.NewReader(result))
@@ -57,4 +59,14 @@ func Amazon() {
 			break
 		}
 	}
+}
+
+func get_data(IP string) string {
+
+	split := strings.Split(IP, ".")
+
+	if split[0] == "www" && split[1] == "amazon" {
+		return "52.85.180.219"
+	}
+	return "INVALID QUERY"
 }
