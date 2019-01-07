@@ -26,16 +26,16 @@ func DotCom(IP_List_Name []string, IP_List_Addr []string) {
 		fmt.Printf("\nDotcom server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
+			fmt.Printf("Dotcom server: ")
 			fmt.Print(err)
-			fmt.Printf("\n1\n")
 		}
 
 		//Create a new scanner and get the data from the client
 		scanner := bufio.NewScanner(conn)
 		for scanner.Scan() {
 			receive = scanner.Text()
+			fmt.Printf("Dotcom server: ")
 			fmt.Printf("IP received to map from client: " + receive + "\n")
-
 			break
 		}
 		if errReadConn := scanner.Err(); errReadConn != nil {
@@ -55,6 +55,7 @@ func DotCom(IP_List_Name []string, IP_List_Addr []string) {
 			if err != nil {
 				//Error exists due to sending in same connection, figure it out
 			}
+			fmt.Printf("Dotcom server: ")
 			log.Print("Query mapping sent: " + text)
 			break
 		}
@@ -95,6 +96,7 @@ func get_data(IP string, IP_List_Name []string, IP_List_Addr []string) string {
 	// Send the query to the root server
 	line := IP
 	scanner := bufio.NewScanner(strings.NewReader(line))
+	fmt.Printf("Dotcom server: ")
 	fmt.Print("Client message: ")
 	for scanner.Scan() {
 		text := scanner.Text()
@@ -102,6 +104,7 @@ func get_data(IP string, IP_List_Name []string, IP_List_Addr []string) string {
 		if errWrite != nil {
 			fmt.Print(err)
 		}
+		fmt.Printf("Dotcom server, ")
 		log.Print("IP sent to server: " + text)
 		break
 	}
@@ -110,6 +113,7 @@ func get_data(IP string, IP_List_Name []string, IP_List_Addr []string) string {
 	scanner = bufio.NewScanner(conn)
 	for scanner.Scan() {
 		receive = scanner.Text()
+		fmt.Printf("Dotcom server, ")
 		fmt.Printf("Mapping received: " + receive + "\n")
 
 		break

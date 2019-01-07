@@ -9,9 +9,8 @@ import (
 	"dotedu/nitk"
 	"dotin"
 	"dotin/dotac"
-	"dotin/dotac/nitk/cse"
-	"dotin/dotac/nitk/ece"
-	"dotin/dotac/nitk/eee"
+	"dotin/dotac/nitkac"
+	"dotin/google"
 	"fmt"
 	"root_server"
 )
@@ -50,47 +49,35 @@ func main() {
 	go func() {
 		root_server.Root_server(IP_List_Name, IP_List_Addr)
 	}()
-	fmt.Printf("|----")
 	go func() {
-		dotedu.DotEdu()
-	}()
-	fmt.Printf("     |----")
-	go func() {
-		nitk.Nitk()
-	}()
-	fmt.Printf("     |----")
-	go func() {
-		mit.Mit()
+		dotin.DotIn(IP_List_Name, IP_List_Addr)
 	}()
 	go func() {
 		dotcom.DotCom(IP_List_Name, IP_List_Addr)
 	}()
-	fmt.Printf("     |----")
+	go func() {
+		dotedu.DotEdu(IP_List_Name, IP_List_Addr)
+	}()
+	go func() {
+		dotac.DotAc(IP_List_Name, IP_List_Addr)
+	}()
 	go func() {
 		amazon.Amazon(IP_List_Name, IP_List_Addr)
 	}()
-	fmt.Printf("     |----")
 	go func() {
-		dell.Dell()
+		dell.Dell(IP_List_Name, IP_List_Addr)
 	}()
 	go func() {
-		dotin.DotIn()
+		nitk.Nitk(IP_List_Name, IP_List_Addr)
 	}()
-	fmt.Printf("     |----")
 	go func() {
-		dotac.DotAc()
+		mit.Mit(IP_List_Name, IP_List_Addr)
 	}()
-	fmt.Printf("          |----")
 	go func() {
-		cse.Cse()
+		google.Google(IP_List_Name, IP_List_Addr)
 	}()
-	fmt.Printf("          |----")
 	go func() {
-		ece.Ece()
-	}()
-	fmt.Printf("          |----")
-	go func() {
-		eee.Eee()
+		nitkac.Nitkac(IP_List_Name, IP_List_Addr)
 	}()
 
 	fmt.Scanln()

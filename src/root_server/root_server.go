@@ -12,36 +12,33 @@ var receive string
 
 func Root_server(IP_List_Name []string, IP_List_Addr []string) {
 
-	log.Printf("Recieved. Root server\n")
 	// Starting the server
 	link, err := net.Listen("tcp", "127.0.0.1:12345")
 	if err != nil {
+		fmt.Printf("Root server: ")
 		fmt.Print(err)
-		fmt.Printf("\n2\n")
 	}
 
 	//Continous server listening
 	for {
-
 		fmt.Printf("\nRoot Server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
+			fmt.Printf("Root server: ")
 			fmt.Print(err)
-			fmt.Printf("\n1\n")
 		}
 
 		//Create a new scanner and get the data from the client
 		scanner := bufio.NewScanner(conn)
 		for scanner.Scan() {
 			receive = scanner.Text()
-			fmt.Printf("IP received to map from client: " + receive + "\n")
-
+			fmt.Printf("Root server: ")
+			fmt.Printf("IP received to map from client this: " + receive + "\n")
 			break
 		}
-		fmt.Printf("I came here man")
 		if errReadConn := scanner.Err(); errReadConn != nil {
 			fmt.Print(errReadConn)
-			log.Printf("Is it this?\n")
+			fmt.Printf("Root server: ")
 			return
 		}
 
@@ -57,6 +54,7 @@ func Root_server(IP_List_Name []string, IP_List_Addr []string) {
 			if err != nil {
 				//Error exists due to sending in same connection, figure it out
 			}
+			fmt.Printf("Root server: ")
 			log.Print("Query mapping sent: " + text)
 			break
 		}
@@ -70,9 +68,20 @@ func start_servers(IP string, IP_List_Name []string, IP_List_Addr []string) stri
 	fmt.Printf("Length of split: %d\n", len(split))
 
 	var k int
+	var str string
+
+	if split[len(split)-1] == "com" {
+		str = "dotcom"
+	} else if split[len(split)-1] == "edu" {
+		str = "dotedu"
+	} else if split[len(split)-1] == "in" {
+		str = "dotin"
+	}
+
+	fmt.Print(str)
 
 	for i := 0; i < len(IP_List_Name); i++ {
-		if IP_List_Name[i] == "dotcom" {
+		if IP_List_Name[i] == str {
 			k = i
 			break
 		}

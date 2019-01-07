@@ -11,13 +11,12 @@ import (
 var receive string
 
 func Amazon(IP_List_Name []string, IP_List_Addr []string) {
-	fmt.Printf("I am the amazon authoritative server!\n")
 
 	// Starting the server
 	link, err := net.Listen("tcp", "127.0.2.2:12345")
 	if err != nil {
+		fmt.Printf("Amazon server :")
 		fmt.Print(err)
-		fmt.Printf("\n2\n")
 	}
 
 	//Continous server listening
@@ -26,16 +25,16 @@ func Amazon(IP_List_Name []string, IP_List_Addr []string) {
 		fmt.Printf("\nAmazon server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
+			fmt.Printf("Amazon server :")
 			fmt.Print(err)
-			fmt.Printf("\n1\n")
 		}
 
 		//Create a new scanner and get the data from the client
 		scanner := bufio.NewScanner(conn)
 		for scanner.Scan() {
 			receive = scanner.Text()
+			fmt.Printf("Amazon server :")
 			fmt.Printf("IP received to map from client: " + receive + "\n")
-
 			break
 		}
 		if errReadConn := scanner.Err(); errReadConn != nil {
@@ -55,6 +54,7 @@ func Amazon(IP_List_Name []string, IP_List_Addr []string) {
 			if err != nil {
 				//Error exists due to sending in same connection, figure it out
 			}
+			fmt.Printf("Amazon server, ")
 			log.Print("Query mapping sent: " + text)
 			break
 		}

@@ -1,4 +1,4 @@
-package mit
+package nitkac
 
 import (
 	"bufio"
@@ -10,22 +10,21 @@ import (
 
 var receive string
 
-func Mit(IP_List_Name []string, IP_List_Addr []string) {
+func Nitkac(IP_List_Name []string, IP_List_Addr []string) {
 
 	// Starting the server
-	link, err := net.Listen("tcp", "127.0.2.5:12345")
+	link, err := net.Listen("tcp", "127.0.3.0:12345")
 	if err != nil {
-		fmt.Printf("Mit server: ")
+		fmt.Printf("Nitkac server: ")
 		fmt.Print(err)
 	}
 
 	//Continuos server listening
 	for {
-
-		fmt.Printf("\nDell Server listening for incoming connections on port 12345\n\n")
+		fmt.Printf("\nNitkac Server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
-			fmt.Printf("Mit server: ")
+			fmt.Printf("Nitkac server: ")
 			fmt.Print(err)
 		}
 
@@ -33,7 +32,7 @@ func Mit(IP_List_Name []string, IP_List_Addr []string) {
 		scanner := bufio.NewScanner(conn)
 		for scanner.Scan() {
 			receive = scanner.Text()
-			fmt.Printf("Mit server: ")
+			fmt.Printf("Nitkac server: ")
 			fmt.Printf("IP received to map from client: " + receive + "\n")
 			break
 		}
@@ -54,7 +53,7 @@ func Mit(IP_List_Name []string, IP_List_Addr []string) {
 			if err != nil {
 				//Error exists due to sending in same connection, figure it out
 			}
-			fmt.Printf("Mit server: ")
+			fmt.Printf("Nitkac server: ")
 			log.Print("Query mapping sent: " + text)
 			break
 		}
@@ -65,8 +64,14 @@ func get_data(IP string) string {
 
 	split := strings.Split(IP, ".")
 
-	if split[0] == "www" && split[1] == "mit" {
-		return "23.76.235.103"
+	if split[0] == "eee" && split[1] == "nitk" {
+		return "10.3.0.14"
+	}
+	if split[0] == "cse" && split[1] == "nitk" {
+		return "10.3.0.15"
+	}
+	if split[0] == "ece" && split[1] == "nitk" {
+		return "10.3.0.16"
 	}
 	return "INVALID QUERY"
 }
