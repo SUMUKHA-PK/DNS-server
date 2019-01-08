@@ -15,3 +15,4 @@ Following is an implementation of a DNS server in Golang.
 * Do, ```go build``` to create an executable.
 * Run ```./main.exe``` to run the server
 
+Refer to [wiki](https://github.com/SUMUKHA-PK/DNS-server/wiki) for implementation and testing.
