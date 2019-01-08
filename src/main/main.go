@@ -43,41 +43,49 @@ import (
 
 func main() {
 
-	var IP_List_Name = []string{"dotin", "dotcom", "dotedu", "dotac", "google", "amazon", "dell", "nitk", "mit", "nitkac"}
-	var IP_List_Addr = []string{"127.0.1.0", "127.0.1.1", "127.0.1.2", "127.0.2.0", "127.0.2.1", "127.0.2.2", "127.0.2.3", "127.0.2.4", "127.0.2.5", "127.0.3.0"}
+	var IP_List_Name_root = []string{"dotin", "dotcom", "dotedu"}
+	var IP_List_Addr_root = []string{"127.0.1.0", "127.0.1.1", "127.0.1.2"}
+	var IP_List_Name_com = []string{"amazon", "dell"}
+	var IP_List_Addr_com = []string{"127.0.2.2", "127.0.2.3"}
+	var IP_List_Name_in = []string{"dotac", "google"}
+	var IP_List_Addr_in = []string{"127.0.2.0", "127.0.2.1"}
+	var IP_List_Name_ac = []string{"nitkac"}
+	var IP_List_Addr_ac = []string{"127.0.3.0"}
+	var IP_List_Name_edu = []string{"nitk", "mit"}
+	var IP_List_Addr_edu = []string{"127.0.2.4", "127.0.2.5"}
 
 	go func() {
-		root_server.Root_server(IP_List_Name, IP_List_Addr)
+		root_server.Root_server(IP_List_Name_root, IP_List_Addr_root)
 	}()
 	go func() {
-		dotin.DotIn(IP_List_Name, IP_List_Addr)
+		dotin.DotIn(IP_List_Name_in, IP_List_Addr_in)
 	}()
 	go func() {
-		dotcom.DotCom(IP_List_Name, IP_List_Addr)
+		dotcom.DotCom(IP_List_Name_com, IP_List_Addr_com)
 	}()
 	go func() {
-		dotedu.DotEdu(IP_List_Name, IP_List_Addr)
+		dotedu.DotEdu(IP_List_Name_edu, IP_List_Addr_edu)
 	}()
 	go func() {
-		dotac.DotAc(IP_List_Name, IP_List_Addr)
+		dotac.DotAc(IP_List_Name_ac, IP_List_Addr_ac)
 	}()
 	go func() {
-		amazon.Amazon(IP_List_Name, IP_List_Addr)
+		amazon.Amazon(IP_List_Name_com, IP_List_Addr_com)
 	}()
 	go func() {
-		dell.Dell(IP_List_Name, IP_List_Addr)
+		dell.Dell(IP_List_Name_com, IP_List_Name_com)
 	}()
 	go func() {
-		nitk.Nitk(IP_List_Name, IP_List_Addr)
+		nitk.Nitk(IP_List_Name_edu, IP_List_Addr_edu)
 	}()
 	go func() {
-		mit.Mit(IP_List_Name, IP_List_Addr)
+		mit.Mit(IP_List_Name_edu, IP_List_Addr_edu)
 	}()
 	go func() {
-		google.Google(IP_List_Name, IP_List_Addr)
+		google.Google(IP_List_Name_in, IP_List_Addr_in)
 	}()
 	go func() {
-		nitkac.Nitkac(IP_List_Name, IP_List_Addr)
+		nitkac.Nitkac(IP_List_Name_in, IP_List_Addr_in)
 	}()
 
 	fmt.Scanln()

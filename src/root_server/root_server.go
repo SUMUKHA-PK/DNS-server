@@ -70,6 +70,8 @@ func start_servers(IP string, IP_List_Name []string, IP_List_Addr []string) stri
 	var k int
 	var str string
 
+	str = ""
+
 	if split[len(split)-1] == "com" {
 		str = "dotcom"
 	} else if split[len(split)-1] == "edu" {
@@ -78,7 +80,11 @@ func start_servers(IP string, IP_List_Name []string, IP_List_Addr []string) stri
 		str = "dotin"
 	}
 
-	fmt.Print(str)
+	// Error control breakpoint
+	if str == "" {
+		log.Printf("No valid IP at root server")
+		return "INVALID QUERY"
+	}
 
 	for i := 0; i < len(IP_List_Name); i++ {
 		if IP_List_Name[i] == str {
@@ -99,10 +105,9 @@ func start_servers(IP string, IP_List_Name []string, IP_List_Addr []string) stri
 		log.Print("Connected")
 	}
 
-	// Send the query to the root server
+	// Send the query to the next server
 	line := IP
 	scanner := bufio.NewScanner(strings.NewReader(line))
-	fmt.Print("Client message: ")
 	for scanner.Scan() {
 		text := scanner.Text()
 		_, errWrite := fmt.Fprintf(conn, text+"\n")
@@ -110,6 +115,7 @@ func start_servers(IP string, IP_List_Name []string, IP_List_Addr []string) stri
 			fmt.Print(err)
 		}
 		log.Print("IP sent to server: " + text)
+		fmt.Printf("\n")
 		break
 	}
 
@@ -118,11 +124,12 @@ func start_servers(IP string, IP_List_Name []string, IP_List_Addr []string) stri
 	for scanner.Scan() {
 		receive = scanner.Text()
 		fmt.Printf("Mapping received: " + receive + "\n")
-
+		fmt.Printf("\n")
 		break
 	}
 	if errReadConn := scanner.Err(); errReadConn != nil {
 		fmt.Print(errReadConn)
+		fmt.Printf("\n")
 	}
 
 	return receive

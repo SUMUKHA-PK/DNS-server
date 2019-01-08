@@ -42,11 +42,9 @@ func DotIn(IP_List_Name []string, IP_List_Addr []string) {
 			return
 		}
 
-		fmt.Printf("Not coming here?1")
-		//Get the IP from the above servers
+		//Get the IP from the below servers
 		result := get_data(receive, IP_List_Name, IP_List_Addr)
 
-		fmt.Printf("Not coming here?2")
 		//Communicate back the result to the client on the same connection
 		scanner = bufio.NewScanner(strings.NewReader(result))
 
@@ -68,7 +66,10 @@ func get_data(IP string, IP_List_Name []string, IP_List_Addr []string) string {
 
 	var j, k int
 
-	var str string
+	//Error control mechanism
+	k = -1
+
+	var str, str1 string
 
 	for i := 0; i < len(split); i++ {
 		if split[i] == "in" {
@@ -78,12 +79,18 @@ func get_data(IP string, IP_List_Name []string, IP_List_Addr []string) string {
 	}
 
 	str = "dot" + split[j-1]
+	str1 = split[j-1]
 
 	for i := 0; i < len(IP_List_Name); i++ {
-		if str == IP_List_Name[i] {
+		if str == IP_List_Name[i] || str1 == IP_List_Name[i] {
 			k = i
 			break
 		}
+	}
+
+	if k == -1 {
+		log.Printf("No valid IP at Dotin server")
+		return "INVALID QUERY"
 	}
 
 	addr := IP_List_Addr[k]

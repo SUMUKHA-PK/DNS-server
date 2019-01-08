@@ -67,6 +67,9 @@ func get_data(IP string, IP_List_Name []string, IP_List_Addr []string) string {
 
 	var j, k int
 
+	//Error control mechanism
+	k = -1
+
 	for i := 0; i < len(split); i++ {
 		if split[i] == "com" {
 			j = i
@@ -79,6 +82,11 @@ func get_data(IP string, IP_List_Name []string, IP_List_Addr []string) string {
 			k = i
 			break
 		}
+	}
+
+	if k == -1 {
+		log.Printf("No valid IP at Dotcom server")
+		return "INVALID QUERY"
 	}
 
 	addr := IP_List_Addr[k]
