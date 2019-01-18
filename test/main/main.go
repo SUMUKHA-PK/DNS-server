@@ -1,10 +1,11 @@
 package main
 
 import (
+	"../performance"
 	"../unit"
 )
 
 func main() {
 	unit.Unit()
-	//total.Total()
+	performance.Performance()
 }

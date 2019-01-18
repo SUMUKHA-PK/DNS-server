@@ -17,53 +17,51 @@ func Unit() {
 	count = 0
 	total = 0
 
-	for j := 0; j < 1000; j++ {
-		for i := 0; i < len(IP_Addr); i++ {
+	for i := 0; i < len(IP_Addr); i++ {
 
-			var receive string
+		var receive string
 
-			ip := IP_Name[i]
-			//Root server is always hosted at this
-			conn, err := net.Dial("tcp", "127.0.0.1:12345")
-			if err != nil {
-				fmt.Print(err)
-			} else {
-				log.Print("Connected")
-			}
-
-			// Send the query to the root server
-			line := ip
-			scanner := bufio.NewScanner(strings.NewReader(line))
-			fmt.Print("Client message: ")
-			for scanner.Scan() {
-				text := scanner.Text()
-				_, errWrite := fmt.Fprintf(conn, text+"\n")
-				if errWrite != nil {
-					fmt.Print(err)
-				}
-				log.Print("IP sent to server: " + text)
-				break
-			}
-
-			// Receive mapping from the same connection
-			scanner = bufio.NewScanner(conn)
-			for scanner.Scan() {
-				receive = scanner.Text()
-				fmt.Printf("Mapping received: " + receive + "\n")
-				break
-			}
-			if errReadConn := scanner.Err(); errReadConn != nil {
-				fmt.Print(errReadConn)
-				return
-			}
-			if receive == IP_Addr[i] {
-				log.Printf("Test passed!")
-				count++
-			} else {
-				log.Printf("Test failed!")
-			}
-			total++
+		ip := IP_Name[i]
+		//Root server is always hosted at this
+		conn, err := net.Dial("tcp", "127.0.0.1:12345")
+		if err != nil {
+			fmt.Print(err)
+		} else {
+			log.Print("Connected")
 		}
-		fmt.Printf("\n%d off %d tests passed\n", count, total)
+
+		// Send the query to the root server
+		line := ip
+		scanner := bufio.NewScanner(strings.NewReader(line))
+		fmt.Print("Client message: ")
+		for scanner.Scan() {
+			text := scanner.Text()
+			_, errWrite := fmt.Fprintf(conn, text+"\n")
+			if errWrite != nil {
+				fmt.Print(err)
+			}
+			log.Print("IP sent to server: " + text)
+			break
+		}
+
+		// Receive mapping from the same connection
+		scanner = bufio.NewScanner(conn)
+		for scanner.Scan() {
+			receive = scanner.Text()
+			fmt.Printf("Mapping received: " + receive + "\n")
+			break
+		}
+		if errReadConn := scanner.Err(); errReadConn != nil {
+			fmt.Print(errReadConn)
+			return
+		}
+		if receive == IP_Addr[i] {
+			log.Printf("Test passed!")
+			count++
+		} else {
+			log.Printf("Test failed!")
+		}
+		total++
 	}
+	fmt.Printf("\n%d off %d tests passed\n", count, total)
 }
