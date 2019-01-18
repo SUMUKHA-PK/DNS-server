@@ -1,18 +1,19 @@
 package main
 
 import (
-	"dotcom"
-	"dotcom/amazon"
-	"dotcom/dell"
-	"dotedu"
-	"dotedu/mit"
-	"dotedu/nitk"
-	"dotin"
-	"dotin/dotac"
-	"dotin/dotac/nitkac"
-	"dotin/google"
 	"fmt"
-	"root_server"
+
+	"../dotcom"
+	"../dotcom/amazon"
+	"../dotcom/dell"
+	"../dotedu"
+	"../dotedu/mit"
+	"../dotedu/nitk"
+	"../dotin"
+	"../dotin/dotac"
+	"../dotin/dotac/nitkac"
+	"../dotin/google"
+	"../root_server"
 )
 
 //                         STRUCTURE OF THE DNS SERVERS
