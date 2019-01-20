@@ -25,7 +25,7 @@ func Dell(IP_List_Name []string, IP_List_Addr []string) {
 		fmt.Printf("\nDell Server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
-			fmt.Printf("Dell server: ")
+			fmt.Print("Dell server: ")
 			fmt.Print(err)
 		}
 
@@ -33,8 +33,8 @@ func Dell(IP_List_Name []string, IP_List_Addr []string) {
 		scanner := bufio.NewScanner(conn)
 		for scanner.Scan() {
 			receive = scanner.Text()
-			fmt.Printf("Dell server: ")
-			fmt.Printf("IP received to map from client: " + receive + "\n")
+			fmt.Print("Dell server: ")
+			fmt.Printf("IP received to map from client: %s\n", receive)
 			break
 		}
 		if errReadConn := scanner.Err(); errReadConn != nil {
@@ -54,8 +54,8 @@ func Dell(IP_List_Name []string, IP_List_Addr []string) {
 			if err != nil {
 				//Error exists due to sending in same connection, figure it out
 			}
-			fmt.Printf("Dell server: ")
-			log.Print("Query mapping sent: " + text)
+			fmt.Print("Dell server: ")
+			log.Printf("Query mapping sent: %s\n", text)
 			break
 		}
 	}

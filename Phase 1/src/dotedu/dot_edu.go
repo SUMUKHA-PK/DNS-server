@@ -17,7 +17,7 @@ func DotEdu(IP_List_Name []string, IP_List_Addr []string) {
 	//Starting the server
 	link, err := net.Listen("tcp", "127.0.1.2:12345")
 	if err != nil {
-		fmt.Printf("Dotedu server: ")
+		fmt.Print("Dotedu server: ")
 		fmt.Print(err)
 	}
 
@@ -27,7 +27,7 @@ func DotEdu(IP_List_Name []string, IP_List_Addr []string) {
 		fmt.Printf("\nDotEdu server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
-			fmt.Printf("Dotedu server: ")
+			fmt.Print("Dotedu server: ")
 			fmt.Print(err)
 		}
 
@@ -35,8 +35,8 @@ func DotEdu(IP_List_Name []string, IP_List_Addr []string) {
 		scanner := bufio.NewScanner(conn)
 		for scanner.Scan() {
 			receive = scanner.Text()
-			fmt.Printf("Dotedu server: ")
-			fmt.Printf("IP received to map from client: " + receive + "\n")
+			fmt.Print("Dotedu server: ")
+			fmt.Printf("IP received to map from client: %s\n", receive)
 			break
 		}
 		if errReadConn := scanner.Err(); errReadConn != nil {
@@ -58,8 +58,8 @@ func DotEdu(IP_List_Name []string, IP_List_Addr []string) {
 			if err != nil {
 				//Error exists due to sending in same connection, figure it out
 			}
-			fmt.Printf("Dotedu server: ")
-			log.Print("Query mapping sent: " + text)
+			fmt.Print("Dotedu server: ")
+			log.Printf("Query mapping sent: %s\n", text)
 			break
 		}
 	}

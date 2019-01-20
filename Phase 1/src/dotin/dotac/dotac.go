@@ -17,7 +17,7 @@ func DotAc(IP_List_Name []string, IP_List_Addr []string) {
 	// Starting the server
 	link, err := net.Listen("tcp", "127.0.2.0:12345")
 	if err != nil {
-		fmt.Printf("Dotac server: ")
+		fmt.Print("Dotac server: ")
 		fmt.Print(err)
 	}
 
@@ -27,7 +27,7 @@ func DotAc(IP_List_Name []string, IP_List_Addr []string) {
 		fmt.Printf("\nDotAc server listening for incoming connections on port 12345\n\n")
 		conn, err := link.Accept()
 		if err != nil {
-			fmt.Printf("Dotac server: ")
+			fmt.Print("Dotac server: ")
 			fmt.Print(err)
 		}
 
@@ -35,8 +35,8 @@ func DotAc(IP_List_Name []string, IP_List_Addr []string) {
 		scanner := bufio.NewScanner(conn)
 		for scanner.Scan() {
 			receive = scanner.Text()
-			fmt.Printf("Dotac server: ")
-			fmt.Printf("IP received to map from client: " + receive + "\n")
+			fmt.Print("Dotac server: ")
+			fmt.Printf("IP received to map from client: %s\n", receive)
 			break
 		}
 		if errReadConn := scanner.Err(); errReadConn != nil {
@@ -58,8 +58,8 @@ func DotAc(IP_List_Name []string, IP_List_Addr []string) {
 			if err != nil {
 				//Error exists due to sending in same connection, figure it out
 			}
-			fmt.Printf("Dotac server: ")
-			log.Print("Query mapping sent: " + text)
+			fmt.Print("Dotac server: ")
+			log.Printf("Query mapping sent: %s\n", text)
 			break
 		}
 	}
