@@ -6,6 +6,8 @@ import (
 	"log"
 	"net"
 	"strings"
+
+	"../../helper"
 )
 
 var receive string
@@ -43,7 +45,9 @@ func DotAc(IP_List_Name []string, IP_List_Addr []string) {
 		}
 
 		//Get the IP from the above servers
-		result := get_data(receive, IP_List_Name, IP_List_Addr)
+		split := strings.Split(receive, ".")
+		server_name := split[len(split)-2]
+		result := helper.ContactHelper(receive, IP_List_Name, IP_List_Addr, server_name)
 
 		//Communicate back the result to the client on the same connection
 		scanner = bufio.NewScanner(strings.NewReader(result))
