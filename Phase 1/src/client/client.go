@@ -1,4 +1,4 @@
-package main
+package client
 
 import (
 	"bufio"
@@ -10,7 +10,7 @@ import (
 
 var receive string
 
-func main() {
+func Client() {
 
 	//Input query of the IP to be resolved
 	fmt.Printf("Enter the query: ")
