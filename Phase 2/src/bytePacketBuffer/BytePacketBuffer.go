@@ -13,11 +13,16 @@ type BytePacketBuffer struct {
 	pos    int
 }
 
-func pos(Buffer BytePacketBuffer) int {
+func New_BytePacktetBuffer(Buffer BytePacketBuffer) BytePacketBuffer {
+	Buffer.pos = 0
+	return Buffer
+}
+
+func Pos(Buffer BytePacketBuffer) int {
 	return Buffer.pos
 }
 
-func step(Buffer BytePacketBuffer, steps int) error {
+func Step(Buffer BytePacketBuffer, steps int) error {
 	if Buffer.pos+steps >= 512 {
 		return errors.New("End of buffer")
 	}
@@ -25,7 +30,7 @@ func step(Buffer BytePacketBuffer, steps int) error {
 	return nil
 }
 
-func seek(Buffer BytePacketBuffer, pos int) error {
+func Seek(Buffer BytePacketBuffer, pos int) error {
 	if pos >= 512 {
 		return errors.New("End of buffer")
 	}
@@ -34,7 +39,7 @@ func seek(Buffer BytePacketBuffer, pos int) error {
 }
 
 // Method reads one single byte and moves forward
-func read_data(Buffer BytePacketBuffer) (int, error) {
+func Read_data(Buffer BytePacketBuffer) (int, error) {
 	if Buffer.pos >= 512 {
 		return 0, errors.New("End of buffer")
 	}
@@ -46,7 +51,7 @@ func read_data(Buffer BytePacketBuffer) (int, error) {
 
 // Method for fetching data at a specified position without modifying the intenal position
 
-func get(Buffer BytePacketBuffer, pos int) (uint8, error) {
+func Get(Buffer BytePacketBuffer, pos int) (uint8, error) {
 	if pos >= 512 {
 		return 0, errors.New("End of buffer")
 	}
@@ -55,7 +60,7 @@ func get(Buffer BytePacketBuffer, pos int) (uint8, error) {
 	return uint8(result), nil
 }
 
-func get_range(Buffer BytePacketBuffer, start int, len int) ([]int, error) {
+func Get_range(Buffer BytePacketBuffer, start int, len int) ([]int, error) {
 	if start+len >= 512 {
 		return nil, errors.New("End of buffer")
 	}
@@ -63,24 +68,24 @@ func get_range(Buffer BytePacketBuffer, start int, len int) ([]int, error) {
 
 }
 
-func read_u16(Buffer BytePacketBuffer) uint16 {
-	a := uint16(errorHandling.ErrorHelper(read_data(Buffer)))
-	b := uint16(errorHandling.ErrorHelper(read_data(Buffer)))
+func Read_u16(Buffer BytePacketBuffer) uint16 {
+	a := uint16(errorHandling.ErrorHelper(Read_data(Buffer)))
+	b := uint16(errorHandling.ErrorHelper(Read_data(Buffer)))
 	result := (a << 8) | b
 	return result
 
 } // Error is raised by ErrorHelper
 
-func read_u32(Buffer BytePacketBuffer) uint32 {
-	a := uint32(errorHandling.ErrorHelper(read_data(Buffer)))
-	b := uint32(errorHandling.ErrorHelper(read_data(Buffer)))
-	c := uint32(errorHandling.ErrorHelper(read_data(Buffer)))
-	d := uint32(errorHandling.ErrorHelper(read_data(Buffer)))
+func Read_u32(Buffer BytePacketBuffer) uint32 {
+	a := uint32(errorHandling.ErrorHelper(Read_data(Buffer)))
+	b := uint32(errorHandling.ErrorHelper(Read_data(Buffer)))
+	c := uint32(errorHandling.ErrorHelper(Read_data(Buffer)))
+	d := uint32(errorHandling.ErrorHelper(Read_data(Buffer)))
 	result := (a << 24) | (b << 16) | (c << 8) | (d << 0)
 	return result
 }
 
-func read_qname(Buffer BytePacketBuffer, outstr string) {
+func Read_qname(Buffer BytePacketBuffer, outstr string) {
 
 	// Tracking current qname
 	pos := Buffer.pos
@@ -92,18 +97,18 @@ func read_qname(Buffer BytePacketBuffer, outstr string) {
 
 	for {
 		// Start of a label has the length
-		len, err := get(Buffer, pos)
+		len, err := Get(Buffer, pos)
 		errorHandling.ErrorHandler(err)
 
 		// If 2 most significant bits are set, indicates jump is needed
 		if len&0xC0 == 0xC0 {
 			// Jump to the place where the non-repeatitive data starts
 			if !jumped {
-				err := seek(Buffer, pos+2)
+				err := Seek(Buffer, pos+2)
 				errorHandling.ErrorHandler(err)
 			}
 
-			b_2, err := get(Buffer, pos+1)
+			b_2, err := Get(Buffer, pos+1)
 			errorHandling.ErrorHandler(err)
 
 			b2 := uint16(b_2)
@@ -124,7 +129,7 @@ func read_qname(Buffer BytePacketBuffer, outstr string) {
 			// Append delimiter to output string
 			outstr += delimiter
 
-			str_buffer, err := get_range(Buffer, pos, int(len))
+			str_buffer, err := Get_range(Buffer, pos, int(len))
 			errorHandling.ErrorHandler(err)
 
 			outstr += strings.Trim(strings.Replace(fmt.Sprint(str_buffer), " ", "", -1), "[]")
@@ -137,7 +142,7 @@ func read_qname(Buffer BytePacketBuffer, outstr string) {
 	}
 	// If jump has been performed weve already altered the buffer position and musnt do it again
 	if !jumped {
-		err := seek(Buffer, pos)
+		err := Seek(Buffer, pos)
 		errorHandling.ErrorHandler(err)
 	}
 } // End of q_name
