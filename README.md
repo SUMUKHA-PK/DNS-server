@@ -16,8 +16,7 @@ Following is an implementation of a DNS server in Golang.
 * Run ```./main.exe``` to run the server
 
 **Steps to run tests:**<br>
-* Open ```test/main``` in a terminal.
-* Do, ```go build``` to create an executable.
-* Run ```./main.exe``` to run the tests.
+* Open ```src/client``` in a terminal.
+* Do, ```go test``` to run all tests and to obtain results.
 
 Refer to [wiki](https://github.com/SUMUKHA-PK/DNS-server/wiki) for implementation and testing.
