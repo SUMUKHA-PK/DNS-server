@@ -140,4 +140,4 @@ func read_qname(Buffer BytePacketBuffer, outstr string) {
 		err := seek(Buffer, pos)
 		errorHandling.ErrorHandler(err)
 	}
-}
+} // End of q_name
