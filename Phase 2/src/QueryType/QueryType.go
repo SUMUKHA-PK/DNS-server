@@ -14,7 +14,7 @@ func QueryTypeToInt(QT QueryType) uint16 {
 	return uint16(UNKNOWN)
 }
 
-func IntToQueryType(Int int) QueryType {
+func IntToQueryType(Int uint16) QueryType {
 	if Int == 1 {
 		return A
 	}
