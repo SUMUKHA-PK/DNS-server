@@ -10,7 +10,7 @@ import (
 
 type BytePacketBuffer struct {
 	buffer [512]int
-	pos    int
+	pos    uint16
 }
 
 func New_BytePacktetBuffer(Buffer BytePacketBuffer) BytePacketBuffer {
@@ -18,11 +18,11 @@ func New_BytePacktetBuffer(Buffer BytePacketBuffer) BytePacketBuffer {
 	return Buffer
 }
 
-func Pos(Buffer BytePacketBuffer) int {
+func Pos(Buffer BytePacketBuffer) uint16 {
 	return Buffer.pos
 }
 
-func Step(Buffer BytePacketBuffer, steps int) error {
+func Step(Buffer BytePacketBuffer, steps uint16) error {
 	if Buffer.pos+steps >= 512 {
 		return errors.New("End of buffer")
 	}
@@ -30,7 +30,7 @@ func Step(Buffer BytePacketBuffer, steps int) error {
 	return nil
 }
 
-func Seek(Buffer BytePacketBuffer, pos int) error {
+func Seek(Buffer BytePacketBuffer, pos uint16) error {
 	if pos >= 512 {
 		return errors.New("End of buffer")
 	}
@@ -51,7 +51,7 @@ func Read_data(Buffer BytePacketBuffer) (int, error) {
 
 // Method for fetching data at a specified position without modifying the intenal position
 
-func Get(Buffer BytePacketBuffer, pos int) (uint8, error) {
+func Get(Buffer BytePacketBuffer, pos uint16) (uint8, error) {
 	if pos >= 512 {
 		return 0, errors.New("End of buffer")
 	}
@@ -60,7 +60,7 @@ func Get(Buffer BytePacketBuffer, pos int) (uint8, error) {
 	return uint8(result), nil
 }
 
-func Get_range(Buffer BytePacketBuffer, start int, len int) ([]int, error) {
+func Get_range(Buffer BytePacketBuffer, start uint16, len uint16) ([]int, error) {
 	if start+len >= 512 {
 		return nil, errors.New("End of buffer")
 	}
@@ -115,7 +115,7 @@ func Read_qname(Buffer BytePacketBuffer, outstr string) {
 
 			offset := ((uint16(len) ^ 0xC0) << 8) | b2
 
-			pos = int(offset)
+			pos = offset
 			// Jump has happened
 			jumped = true
 		} else { //Base case, jump to position and reading label, output values
@@ -129,7 +129,7 @@ func Read_qname(Buffer BytePacketBuffer, outstr string) {
 			// Append delimiter to output string
 			outstr += delimiter
 
-			str_buffer, err := Get_range(Buffer, pos, int(len))
+			str_buffer, err := Get_range(Buffer, pos, uint16(len))
 			errorHandling.ErrorHandler(err)
 
 			outstr += strings.Trim(strings.Replace(fmt.Sprint(str_buffer), " ", "", -1), "[]")
@@ -137,7 +137,7 @@ func Read_qname(Buffer BytePacketBuffer, outstr string) {
 			delimiter = "."
 
 			//Move forward the entire length of the label
-			pos += int(len)
+			pos += uint16(len)
 		}
 	}
 	// If jump has been performed weve already altered the buffer position and musnt do it again

@@ -12,7 +12,7 @@ const (
 	NOTIMP   ResultCode = 4
 	REFUSED  ResultCode = 5
 	NOERROR  ResultCode = 0
-)
+) //enum
 
 type DNSHeader struct {
 	id uint16 //16bits
@@ -54,7 +54,7 @@ func IntToResultCode(a uint8) ResultCode {
 	return REFUSED
 }
 
-func new_Header(Header DNSHeader) DNSHeader {
+func New_Header(Header DNSHeader) DNSHeader {
 
 	Header.id = 0
 
@@ -78,7 +78,7 @@ func new_Header(Header DNSHeader) DNSHeader {
 	return Header
 }
 
-func readHeader(Header DNSHeader, Buffer BytePacketBuffer.BytePacketBuffer) {
+func ReadHeader(Header DNSHeader, Buffer BytePacketBuffer.BytePacketBuffer) {
 
 	Header.id = BytePacketBuffer.Read_u16(Buffer)
 
