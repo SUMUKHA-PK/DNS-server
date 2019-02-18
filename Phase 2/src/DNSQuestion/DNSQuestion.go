@@ -6,19 +6,19 @@ import (
 )
 
 type DNSQuestion struct {
-	name  string
-	qtype QueryType.QueryType
+	Name  string
+	Qtype QueryType.QueryType
 }
 
-func newQuestion(Question DNSQuestion, name string, QT QueryType.QueryType) DNSQuestion {
-
-	Question.name = name
-	Question.qtype = QT
+func NewQuestion(Question DNSQuestion, name string, QT QueryType.QueryType) DNSQuestion {
+	Question.Name = name
+	Question.Qtype = QT
 	return Question
 }
 
-func read(Question DNSQuestion, Buffer BytePacketBuffer.BytePacketBuffer) {
-	BytePacketBuffer.Read_qname(Buffer, Question.name)
-	Question.qtype = QueryType.IntToQueryType(BytePacketBuffer.Read_u16(Buffer))
-	// Class := BytePacketBuffer.Read_u16(Buffer) Dont know what this is
+func Read(Question DNSQuestion, Buffer BytePacketBuffer.BytePacketBuffer) DNSQuestion {
+	Question.Name = BytePacketBuffer.Read_qname(Buffer)
+	Question.Qtype = QueryType.IntToQueryType(BytePacketBuffer.Read_u16(Buffer))
+	_ = BytePacketBuffer.Read_u16(Buffer) //Dont know what this is
+	return Question
 }

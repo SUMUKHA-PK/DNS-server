@@ -1,6 +1,8 @@
 package DNSHeader
 
-import "../BytePacketBuffer"
+import (
+	"../BytePacketBuffer"
+)
 
 //enumeration
 type ResultCode uint8
@@ -15,24 +17,24 @@ const (
 ) //enum
 
 type DNSHeader struct {
-	id uint16 //16bits
+	Id uint16 //16bits
 
-	recursion_desired    bool  // 1 bit
-	truncated_message    bool  // 1 bit
-	authoritative_answer bool  // 1 bit
-	opcode               uint8 // 4 bits
-	response             bool  // 1 bit
+	Recursion_desired    bool  // 1 bit
+	Truncated_message    bool  // 1 bit
+	Authoritative_answer bool  // 1 bit
+	Opcode               uint8 // 4 bits
+	Response             bool  // 1 bit
 
-	rescode             ResultCode // 4 bits
-	checking_disabled   bool       // 1 bit
-	authed_data         bool       // 1 bit
-	z                   bool       // 1 bit
-	recursion_available bool       // 1 bit
+	Rescode             ResultCode // 4 bits
+	Checking_disabled   bool       // 1 bit
+	Authed_data         bool       // 1 bit
+	Z                   bool       // 1 bit
+	Recursion_available bool       // 1 bit
 
-	questions             uint16 // 16 bits
-	answers               uint16 // 16 bits
-	authoritative_entries uint16 // 16 bits
-	resource_entries      uint16 // 16 bits
+	Questions             uint16 // 16 bits
+	Answers               uint16 // 16 bits
+	Authoritative_entries uint16 // 16 bits
+	Resource_entries      uint16 // 16 bits
 } // total 96 bits
 
 func IntToResultCode(a uint8) ResultCode {
@@ -56,51 +58,53 @@ func IntToResultCode(a uint8) ResultCode {
 
 func New_Header(Header DNSHeader) DNSHeader {
 
-	Header.id = 0
+	Header.Id = 0
 
-	Header.recursion_desired = false
-	Header.truncated_message = false
-	Header.authoritative_answer = false
-	Header.opcode = 0
-	Header.response = false
+	Header.Recursion_desired = false
+	Header.Truncated_message = false
+	Header.Authoritative_answer = false
+	Header.Opcode = 0
+	Header.Response = false
 
-	Header.rescode = NOERROR
-	Header.checking_disabled = false
-	Header.authed_data = false
-	Header.z = false
-	Header.recursion_available = false
+	Header.Rescode = NOERROR
+	Header.Checking_disabled = false
+	Header.Authed_data = false
+	Header.Z = false
+	Header.Recursion_available = false
 
-	Header.questions = 0
-	Header.answers = 0
-	Header.authoritative_entries = 0
-	Header.resource_entries = 0
+	Header.Questions = 0
+	Header.Answers = 0
+	Header.Authoritative_entries = 0
+	Header.Resource_entries = 0
 
 	return Header
 }
 
-func ReadHeader(Header DNSHeader, Buffer BytePacketBuffer.BytePacketBuffer) {
+func ReadHeader(Header DNSHeader, Buffer BytePacketBuffer.BytePacketBuffer) DNSHeader {
 
-	Header.id = BytePacketBuffer.Read_u16(Buffer)
+	Header.Id = BytePacketBuffer.Read_u16(Buffer)
 
 	flags := BytePacketBuffer.Read_u16(Buffer)
 	a_a := flags >> 8
 	a := uint8(a_a)
 	b_b := flags & 0xFF
 	b := uint8(b_b)
-	Header.recursion_desired = (a & (1 << 0)) > 0
-	Header.truncated_message = (a & (1 << 1)) > 0
-	Header.authoritative_answer = (a & (1 << 0)) > 0
-	Header.opcode = (a << 3) & 0x0F
-	Header.response = (a & (1 << 7)) > 0
+	Header.Recursion_desired = (a & (1 << 0)) > 0
+	Header.Truncated_message = (a & (1 << 1)) > 0
+	Header.Authoritative_answer = (a & (1 << 0)) > 0
+	Header.Opcode = (a << 3) & 0x0F
+	Header.Response = (a & (1 << 7)) > 0
 
-	Header.rescode = IntToResultCode(b & 0x0F)
-	Header.checking_disabled = (b & (1 << 4)) > 0
-	Header.authed_data = (b & (1 << 5)) > 0
-	Header.z = (b & (1 << 6)) > 0
-	Header.recursion_available = (b & (1 << 7)) > 0
+	Header.Rescode = IntToResultCode(b & 0x0F)
+	Header.Checking_disabled = (b & (1 << 4)) > 0
+	Header.Authed_data = (b & (1 << 5)) > 0
+	Header.Z = (b & (1 << 6)) > 0
+	Header.Recursion_available = (b & (1 << 7)) > 0
 
-	Header.questions = BytePacketBuffer.Read_u16(Buffer)
-	Header.answers = BytePacketBuffer.Read_u16(Buffer)
-	Header.authoritative_entries = BytePacketBuffer.Read_u16(Buffer)
-	Header.resource_entries = BytePacketBuffer.Read_u16(Buffer)
+	Header.Questions = BytePacketBuffer.Read_u16(Buffer)
+	Header.Answers = BytePacketBuffer.Read_u16(Buffer)
+	Header.Authoritative_entries = BytePacketBuffer.Read_u16(Buffer)
+	Header.Resource_entries = BytePacketBuffer.Read_u16(Buffer)
+
+	return Header
 }

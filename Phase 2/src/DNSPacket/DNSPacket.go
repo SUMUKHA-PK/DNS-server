@@ -1,6 +1,8 @@
 package DNSPacket
 
 import (
+	"fmt"
+
 	"../BytePacketBuffer"
 	"../DNSHeader"
 	"../DNSQuestion"
@@ -8,21 +10,43 @@ import (
 )
 
 type DNSPacket struct {
-	header      DNSHeader.DNSHeader
-	questions   []DNSQuestion.DNSQuestion
-	answers     []DNSRecord.DNSRecord
-	authorities []DNSRecord.DNSRecord
-	resources   []DNSRecord.DNSRecord
+	Header      DNSHeader.DNSHeader
+	Questions   []DNSQuestion.DNSQuestion
+	Answers     []DNSRecord.DNSRecord
+	Authorities []DNSRecord.DNSRecord
+	Resources   []DNSRecord.DNSRecord
 }
 
 func FromBuffer(Buffer BytePacketBuffer.BytePacketBuffer) DNSPacket {
 	var result DNSPacket
-	var header DNSHeader.DNSHeader
-	header = result.header
-	x := header.questions
-	DNSHeader.ReadHeader(header, Buffer)
+	result.Header = DNSHeader.ReadHeader(result.Header, Buffer)
 
-	for i := 0; i < result.header.questions; i++ {
-
+	fmt.Println(result.Header)
+	for i := 0; i < int(result.Header.Questions); i++ {
+		var question DNSQuestion.DNSQuestion
+		question = DNSQuestion.Read(question, Buffer)
+		result.Questions = append(result.Questions, question)
+		fmt.Println(question)
 	}
+
+	for i := 0; i < int(result.Header.Answers); i++ {
+		var record DNSRecord.DNSRecord
+		record = DNSRecord.ReadRecord(Buffer, record)
+		result.Answers = append(result.Answers, record)
+		fmt.Println(record)
+	}
+
+	for i := 0; i < int(result.Header.Authoritative_entries); i++ {
+		var record DNSRecord.DNSRecord
+		record = DNSRecord.ReadRecord(Buffer, record)
+		result.Authorities = append(result.Authorities, record)
+	}
+
+	for i := 0; i < int(result.Header.Resource_entries); i++ {
+		var record DNSRecord.DNSRecord
+		record = DNSRecord.ReadRecord(Buffer, record)
+		result.Resources = append(result.Resources, record)
+	}
+
+	return result
 }
