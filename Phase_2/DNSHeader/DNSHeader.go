@@ -1,7 +1,7 @@
 package DNSHeader
 
 import (
-	"../BytePacketBuffer"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/BytePacketBuffer"
 )
 
 //enumeration

@@ -3,10 +3,10 @@ package DNSPacket
 import (
 	"fmt"
 
-	"../BytePacketBuffer"
-	"../DNSHeader"
-	"../DNSQuestion"
-	"../DNSRecord"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/BytePacketBuffer"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/DNSHeader"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/DNSQuestion"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/DNSRecord"
 )
 
 type DNSPacket struct {

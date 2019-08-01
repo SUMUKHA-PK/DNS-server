@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"../errorHandling"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/errorHandling"
 )
 
 type BytePacketBuffer struct {

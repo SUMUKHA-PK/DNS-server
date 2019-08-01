@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net"
 
-	"../BytePacketBuffer"
-	"../QueryType"
-	"../errorHandling"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/BytePacketBuffer"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/QueryType"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/errorHandling"
 )
 
 type DNSRecord struct {

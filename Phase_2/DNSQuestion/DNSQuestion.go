@@ -1,8 +1,8 @@
 package DNSQuestion
 
 import (
-	"../BytePacketBuffer"
-	"../QueryType"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/BytePacketBuffer"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/QueryType"
 )
 
 type DNSQuestion struct {

@@ -4,15 +4,15 @@ import (
 	"fmt"
 	"os"
 
-	"../BytePacketBuffer"
-	"../DNSPacket"
-	"../errorHandling"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/BytePacketBuffer"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/DNSPacket"
+	"github.com/SUMUKHA-PK/DNS-server/Phase_2/errorHandling"
 )
 
 func main() {
 	var buffer BytePacketBuffer.BytePacketBuffer
 
-	f, err := os.Open("resp.txt")
+	f, err := os.Open("/home/some_guyy/pk/git/DNS-server/Phase_2/cmd/resp.txt")
 	errorHandling.ErrorHandler(err)
 
 	b1 := make([]byte, 512)
